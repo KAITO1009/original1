@@ -8,7 +8,7 @@
             <ul class="navbar-nav">
                 @if(Auth::check())
                     <li class="nav-item">{!! link_to_route("logout.get", "ログアウト") !!}</li>
-                    <li class="nav-item"><a class="nav-link" href="#">マイページ</a></li>
+                    <li class="nav-item">{!! link_to_route("users.show", "マイページ”, ["id" => Auth:id()]) !!}</li>
                 @else
                     <li class="nav-item">
                         {!! link_to_route("","ログイン", [], ["class" => "nav-link"] !!}
