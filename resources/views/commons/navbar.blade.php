@@ -6,12 +6,17 @@
             <ul class="collapse navbar-nav mr-auto"></ul>
             
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    {!! link_to_route("",ログイン, [], ["class" => "nav-link"] !!}
-                </li>
-                <li class="nav-item">
-                    {!! link_to_route("",新規登録, [], ["class" => "nav-link btn btn-lg btn-succes"] !!}
-                </li>
+                @if(Auth::check())
+                    <li class="nav-item">{!! link_to_route("logout.get", "ログアウト") !!}</li>
+                    <li class="nav-item"><a class="nav-link" href="#">マイページ</a></li>
+                @else
+                    <li class="nav-item">
+                        {!! link_to_route("","ログイン", [], ["class" => "nav-link"] !!}
+                    </li>
+                    <li class="nav-item">
+                        {!! link_to_route("signup.get",新規登録, [], ["class" => "nav-link btn btn-lg btn-succes"] !!}
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
