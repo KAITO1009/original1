@@ -1,11 +1,16 @@
-@extends("layouts.app")
+@extends('layouts.app')
 
-@section("content")
-    <div class="left">
-        
-    </div>
-    <button class="button button-lg button-primary"></button>
-    <div class="right">
-        
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
+
+@section('content')
+    <div class="welcome">
+        <div class="center-block">
+            <h1 class="welcome__title mt-5">Coope</h1>
+            <p class="catch">創作仲間を見つけよう</p>
+            {!! link_to_route('signup.get','はじめる', [], ['class' => 'btn btn-block btn-primary center-block__start mt-5'])!!}
+            {!! link_to_route('login', 'ログイン', [], ['class' => 'btn btn-block btn-secondary center-block__start'])!!}
+        </div>
     </div>
 @endsection

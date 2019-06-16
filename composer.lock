@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1d88ef0c12247d1a41669a4ce1e928e",
+    "content-hash": "e735d0fbfbcd77515fecac105d38f2d3",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.99.2",
+            "version": "3.100.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c3c2877ac7d17125631106c1ee3532e9bf33df53"
+                "reference": "ecf8acf56bdb6e642fe86ead6c80eab0c61067cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c3c2877ac7d17125631106c1ee3532e9bf33df53",
-                "reference": "c3c2877ac7d17125631106c1ee3532e9bf33df53",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ecf8acf56bdb6e642fe86ead6c80eab0c61067cb",
+                "reference": "ecf8acf56bdb6e642fe86ead6c80eab0c61067cb",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,59 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-06-05T18:07:37+00:00"
+            "time": "2019-06-10T18:09:57+00:00"
+        },
+        {
+            "name": "cloudinary/cloudinary_php",
+            "version": "1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudinary/cloudinary_php.git",
+                "reference": "d4c947f6728c339649a10999a6a6362e5c7b9490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/d4c947f6728c339649a10999a6a6362e5c7b9490",
+                "reference": "d4c947f6728c339649a10999a6a6362e5c7b9490",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "files": [
+                    "src/Helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudinary",
+                    "homepage": "https://github.com/cloudinary/cloudinary_php/graphs/contributors"
+                }
+            ],
+            "description": "Cloudinary PHP SDK",
+            "homepage": "https://github.com/cloudinary/cloudinary_php",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "cloudinary",
+                "image management",
+                "sdk"
+            ],
+            "time": "2019-05-13T14:27:40+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -191,20 +243,23 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5"
             },
             "type": "library",
             "extra": {
@@ -213,8 +268,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -235,13 +290,16 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
             "keywords": [
+                "annotations",
+                "docblock",
                 "lexer",
-                "parser"
+                "parser",
+                "php"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2019-06-08T11:03:04+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -673,6 +731,67 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "jrm2k6/cloudder",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrm2k6/cloudder.git",
+                "reference": "a69d49fc483bc45d58db4f3ca23d6e54f944b98e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrm2k6/cloudder/zipball/a69d49fc483bc45d58db4f3ca23d6e54f944b98e",
+                "reference": "a69d49fc483bc45d58db4f3ca23d6e54f944b98e",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": ">=1.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "laravel/framework": ">=5.0",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JD\\Cloudder\\CloudderServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cloudder": "JD\\Cloudder\\Facades\\Cloudder"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JD\\Cloudder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dagorn",
+                    "email": "jeremy.dagorn@gmail.com"
+                }
+            ],
+            "description": "Cloudinary API wrapper for Laravel",
+            "homepage": "https://github.com/jrm2k6/cloudder",
+            "keywords": [
+                "api",
+                "cloudinary",
+                "image",
+                "laravel",
+                "laravel4",
+                "upload"
+            ],
+            "time": "2018-05-08T00:22:05+00:00"
         },
         {
             "name": "kylekatarnls/update-helper",
@@ -1928,7 +2047,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -2037,16 +2156,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c71314cd3b9420b732e1526f33a24eff5430b5b3"
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c71314cd3b9420b732e1526f33a24eff5430b5b3",
-                "reference": "c71314cd3b9420b732e1526f33a24eff5430b5b3",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4e6c670af81c4fb0b6c08b035530a9915d0b691f",
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f",
                 "shasum": ""
             },
             "require": {
@@ -2103,7 +2222,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T07:50:59+00:00"
+            "time": "2019-05-30T16:10:05+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -2834,16 +2953,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "f7e90f0f90e354f99f20aa9ead95a1b201b126f9"
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/f7e90f0f90e354f99f20aa9ead95a1b201b126f9",
-                "reference": "f7e90f0f90e354f99f20aa9ead95a1b201b126f9",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/5dda505e5f65d759741dfaf4e54b36010a4b57aa",
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa",
                 "shasum": ""
             },
             "require": {
@@ -2906,7 +3025,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T09:09:27+00:00"
+            "time": "2019-06-03T20:27:40+00:00"
         },
         {
             "name": "symfony/translation-contracts",

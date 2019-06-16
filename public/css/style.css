@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+/*navbar*/
+.navbar{
+    background-color:#333;
+}
+.sitelogo{
+    font-size:1.5rem;
+}
+/*footer*/
+.footer{
+    background-color:#333;
+    text-align:center;
+    height:45px;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.footer-text{
+    color:#fff;
+    line-height:45px;
+}
+
+.wrapper{
+    position:relative;
+}
+/*welocome*/
+.welcome{
+    background:url("../img/top1920.jpg") no-repeat;
+    background-position:center;
+    background-size:cover;
+    margin-bottom:0;
+    height:800px;
+    position:relative;
+    padding-top:8rem;
+}
+.login, .register{
+    height:800px;
+    padding-top:8rem;
+}
+.center-block{
+    background-color:rgba(255,255,255,0.8);
+    width:400px;
+    height:450px;
+    text-align:center;
+    padding:50px 30px;
+    margin:0 auto;
+}
+.welcome__title{
+    font-size:4rem;
+}
