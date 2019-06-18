@@ -172,6 +172,17 @@
 .others_name{
     display:inline-block;
 }
+.post-none p{
+    margin:30px 0 30px 15px;
+}
+.offer-none{
+    
+}
+.offer-time{
+    margin-left:20px;
+    
+}
+
 
 
 /*chat*/

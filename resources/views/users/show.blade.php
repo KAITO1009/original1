@@ -24,29 +24,41 @@
     <div class="tab-content" id="panel-menus">
         <div class="tab-pane fade show active border border-top-0" id="panel-menu1" role="tabpanel" aria-labelledby="tab-menu1">
             <div class="row ml-0">
-                @foreach($book_posts as $book_post)
-                <div class="book_post card">
-                    <p class="book_post__advertisement card-title">{{ $book_post->advertisement }}</p>
-                    <p class="book_post__title card-text">{{ $book_post->title }}</p>
-                    <p class="book_post__author card-text">{{ $book_post->user()->first()->name }}</p>
-                    {!! link_to_route("book_posts.show", "詳細", ["book_posts_id" => $book_post->id], ["class" => "btn btn-sm btn-outline-primary book-post__info-btn"]) !!}
-                </div>
-                @endforeach
+                @if($book_posts->count())
+                    @foreach($book_posts as $book_post)
+                    <div class="book_post card">
+                        <p class="book_post__advertisement card-title">{{ $book_post->advertisement }}</p>
+                        <p class="book_post__title card-text">{{ $book_post->title }}</p>
+                        <p class="book_post__author card-text">{{ $book_post->user()->first()->name }}</p>
+                        {!! link_to_route("book_posts.show", "詳細", ["book_posts_id" => $book_post->id], ["class" => "btn btn-sm btn-outline-primary book-post__info-btn"]) !!}
+                    </div>
+                    @endforeach
+                @else
+                    <div class="post-none">
+                        <p>投稿されていません</p>
+                    </div>
+                @endif
             </div>
             
         </div>
         <div class="tab-pane fade show border border-top-0" id="panel-menu2" role="tabpanel" aria-labelledby="tab-menu2">
             <div class="row ml-0">
-                @foreach($img_posts as $img_post)
-                    <div class="img_post card">
-                        <img src="{{ $img_post->image_url }}" class="img_post__img card-img-top"></img>
-                        <div class="card-body">
-                            <h4 class="img_post__title card-title">{{ $img_post->title }}</h4>
-                            <h6 class="img_post__author card-subtitle">{{ $img_post->user()->first()->name }}</h6>
+                @if($img_posts->count())
+                    @foreach($img_posts as $img_post)
+                        <div class="img_post card">
+                            <img src="{{ $img_post->image_url }}" class="img_post__img card-img-top"></img>
+                            <div class="card-body">
+                                <h4 class="img_post__title card-title">{{ $img_post->title }}</h4>
+                                <h6 class="img_post__author card-subtitle">{{ $img_post->user()->first()->name }}</h6>
+                            </div>
+                            {!! link_to_route("img_posts.show", "詳細", ["img_posts_id" => $img_post->id], ["class" => "btn btn-sm btn-outline-primary img-post__info-btn"]) !!}
                         </div>
-                        {!! link_to_route("img_posts.show", "詳細", ["img_posts_id" => $img_post->id], ["class" => "btn btn-sm btn-outline-primary img-post__info-btn"]) !!}
+                    @endforeach
+                @else
+                    <div class="post-none">
+                        <p>投稿されていません</p>
                     </div>
-                @endforeach    
+                @endif
             </div>
         </div>
     </div>
@@ -57,22 +69,28 @@
         
         <div class="offer mt-5">
             <h2 class="offer-heading mb-3">オファー・マッチング一覧</h2>
-            @if($offering_exist)
+            @if($offering_exist->count())
                 @foreach($offering_exist as $offering_user)
                     @if(!$user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match)
                         <div class="offer-box row ml-0">
-                            {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name col-8"]) !!}
+                            <div class="col-8">
+                                {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name"]) !!}
+                                <span class="offer-time">{{ $user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->created_at }}</span>
+                            </div>
+                            
                             <p class="offer-status col-4">オファー中</p>
                         </div>
-                    @else
                     @endif
                 @endforeach
             @endif
-            @if($is_offered_exist)
+            @if($is_offered_exist->count())
                 @foreach($is_offered_exist as $is_offered_user)
                     @if(!$user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match)
                         <div class="offer-box row ml-0">
-                            {!! link_to_route("users.show",  $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name col-4"]) !!}
+                            <div class="col-4">
+                                {!! link_to_route("users.show",  $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name"]) !!}
+                                <span class="offer-time">{{ $user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->created_at }}</span>
+                            </div>
                             
                             <div class="col-8">
                                 <div class="row float-right">
@@ -87,6 +105,11 @@
                         </div>
                     @endif
                 @endforeach
+            @endif
+            @if(!$offering_exist->count() && !$is_offered_exist->count() && !$match)
+                <div class="offer-none">
+                    <p>オファー・マッチングはありません</p>
+                </div>
             @endif
         </div>    
         <div class="matching mb-5">
@@ -161,29 +184,41 @@
         <div class="tab-content mb-5" id="panel-menus">
             <div class="tab-pane fade show active border border-top-0" id="panel-menu1" role="tabpanel" aria-labelledby="tab-menu1">
                 <div class="row ml-0">
-                    @foreach($book_posts as $book_post)
-                    <div class="book_post card">
-                        <p class="book_post__advertisement card-title">{{ $book_post->advertisement }}</p>
-                        <p class="book_post__title card-text">{{ $book_post->title }}</p>
-                        <p class="book_post__author card-text">{{ $book_post->user()->first()->name }}</p>
-                        {!! link_to_route("book_posts.show", "詳細", ["book_posts_id" => $book_post->id], ["class" => "btn btn-sm btn-outline-primary book-post__info-btn"]) !!}
-                    </div>
-                    @endforeach
+                    @if($book_posts->count())
+                        @foreach($book_posts as $book_post)
+                        <div class="book_post card">
+                            <p class="book_post__advertisement card-title">{{ $book_post->advertisement }}</p>
+                            <p class="book_post__title card-text">{{ $book_post->title }}</p>
+                            <p class="book_post__author card-text">{{ $book_post->user()->first()->name }}</p>
+                            {!! link_to_route("book_posts.show", "詳細", ["book_posts_id" => $book_post->id], ["class" => "btn btn-sm btn-outline-primary book-post__info-btn"]) !!}
+                        </div>
+                        @endforeach
+                    @else
+                        <div class="post-none">
+                            <p>投稿がありません</p>
+                        </div>
+                    @endif
                 </div>
                 
             </div>
             <div class="tab-pane fade show border border-top-0" id="panel-menu2" role="tabpanel" aria-labelledby="tab-menu2">
                 <div class="row ml-0">
-                    @foreach($img_posts as $img_post)
-                        <div class="img_post card">
-                            <img src="{{ $img_post->image_url }}" class="img_post__img card-img-top"></img>
-                            <div class="card-body">
-                                <h4 class="img_post__title card-title">{{ $img_post->title }}</h4>
-                                <h6 class="img_post__author card-subtitle">{{ $img_post->user()->first()->name }}</h6>
+                    @if($img_posts->count())
+                        @foreach($img_posts as $img_post)
+                            <div class="img_post card">
+                                <img src="{{ $img_post->image_url }}" class="img_post__img card-img-top"></img>
+                                <div class="card-body">
+                                    <h4 class="img_post__title card-title">{{ $img_post->title }}</h4>
+                                    <h6 class="img_post__author card-subtitle">{{ $img_post->user()->first()->name }}</h6>
+                                </div>
+                                {!! link_to_route("img_posts.show", "詳細", ["img_posts_id" => $img_post->id], ["class" => "btn btn-sm btn-outline-primary img-post__info-btn"]) !!}
                             </div>
-                            {!! link_to_route("img_posts.show", "詳細", ["img_posts_id" => $img_post->id], ["class" => "btn btn-sm btn-outline-primary img-post__info-btn"]) !!}
+                        @endforeach
+                    @else
+                        <div class="post-none">
+                            <p>投稿がありません</p>
                         </div>
-                    @endforeach    
+                    @endif
                 </div>
             </div>
         </div>

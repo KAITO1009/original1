@@ -70,6 +70,7 @@ class User extends Authenticatable
         
         if($exist && !$its_me){
             $this->is_offered()->detach($userId);
+            
             return true;
         }else{
             return false;
