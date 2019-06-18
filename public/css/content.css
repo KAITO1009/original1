@@ -5,7 +5,9 @@
     background-color:#333;
 }
 .sitelogo{
-    font-size:1.5rem;
+    font-size:1.8rem;
+     font-weight:bold;
+     font-family: 'Raleway', sans-serif;
 }
 .mypage{
     color:white;
@@ -13,6 +15,9 @@
 .offer-badge{
     line-height:48px;
     margin-right:20px;
+}
+.offer-badge__count{
+    margin-left:5px;
 }
 
 /*footer*/
@@ -127,7 +132,9 @@ ul{
     height:200px;
     padding:5px;
 }
-
+.book_post, .book-info{
+    font-family:dcsymbols, 游明朝, YuMincho, "ヒラギノ明朝 Pr6N";
+}
 .book-post__info-btn{
     position:absolute;
     bottom:10px;
