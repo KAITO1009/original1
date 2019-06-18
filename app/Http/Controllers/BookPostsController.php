@@ -60,4 +60,13 @@ class BookPostsController extends Controller
         
         return redirect()->route('book_posts.index');
     }
+    
+    public function destroy($id){
+        $book_post = BookPost::find($id);
+        
+         if (\Auth::id() === $book_post->user_id) {
+            $book_post->delete();
+        }
+        return redirect()->route('book_posts.index');
+    }
 }

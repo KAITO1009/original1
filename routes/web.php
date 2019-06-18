@@ -26,8 +26,8 @@ Route::get("logout", "Auth\LoginController@logout")->name("logout.get");
 Route::group(["middleware" => ["auth"]], function(){
     Route::get("top", "ImgPostsController@index")->name("top");
     Route::resource("users", "UsersController" , ["only" => ["show"]]);
-    Route::resource("book_posts", "BookPostsController", ["only" => ["index", "show", "create", "store"]]);
-    Route::resource("img_posts", "ImgPostsController", ["only" => ["show", "create", "store"]]);
+    Route::resource("book_posts", "BookPostsController", ["only" => ["index", "show", "create", "store", "destroy"]]);
+    Route::resource("img_posts", "ImgPostsController", ["only" => ["show", "create", "store", "destroy"]]);
     
     Route::group(['prefix' => 'users/{id}'], function () {
         Route::post("offer", "UserOfferController@offer")->name("offer");

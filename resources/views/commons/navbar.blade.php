@@ -6,7 +6,7 @@
             <ul class="nav-bar mr-auto"></ul>
             <ul class="navbar-nav mr-4">
                 @if(Auth::check())
-                    @if(true)
+                    @if(!(Auth::user()->is_offered_count() == 0))
                         <div class="offer-badge-wrapper">
                             <span class="badge badge-pill badge-info offer-badge">オファーが来ています<span class="offer-badge__count badge-light badge-pill badge">{{ Auth::user()->is_offered_count() }}</span></span>
                         </div>

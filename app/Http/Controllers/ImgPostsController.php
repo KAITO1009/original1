@@ -79,8 +79,19 @@ class ImgPostsController extends Controller
         }else{
             return back();
         }
+    }
+    
+    public function destroy($id){
+        $img_post = ImgPost::find($id);
         
+        if(\Auth::id() === $img_post->user_id){
+            $public_id = $img_post->public_id;
+            Cloudder::destroyImage($public_id);
+            Cloudder::delete($public_id);
             
+            $img_post->delete();
+        }
         
+        return redirect()->route("/");
     }
 }
