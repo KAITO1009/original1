@@ -35,7 +35,7 @@
                     @endforeach
                 @else
                     <div class="post-none">
-                        <p>投稿されていません</p>
+                        <p>投稿がありません</p>
                     </div>
                 @endif
             </div>
@@ -56,7 +56,7 @@
                     @endforeach
                 @else
                     <div class="post-none">
-                        <p>投稿されていません</p>
+                        <p>投稿がありません</p>
                     </div>
                 @endif
             </div>
@@ -71,7 +71,7 @@
             <h2 class="offer-heading mb-3">オファー・マッチング一覧</h2>
             @if($offering_exist->count())
                 @foreach($offering_exist as $offering_user)
-                    @if(!$user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match)
+                    @if(!($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match) && !($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match == "refused"))
                         <div class="offer-box row ml-0">
                             <div class="col-8">
                                 {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name"]) !!}
@@ -80,12 +80,21 @@
                             
                             <p class="offer-status col-4">オファー中</p>
                         </div>
+                    @else
+                        <div class="offer-box row ml-0">
+                            <div class="col-8">
+                                {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name"]) !!}
+                                <span class="offer-time">{{ $user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->created_at }}</span>
+                            </div>
+                            
+                            <p class="offer-status col-4">オファーを断られました</p>
+                        </div>
                     @endif
                 @endforeach
             @endif
             @if($is_offered_exist->count())
                 @foreach($is_offered_exist as $is_offered_user)
-                    @if(!$user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match)
+                    @if(!($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match) && !($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match == "refused"))
                         <div class="offer-box row ml-0">
                             <div class="col-4">
                                 {!! link_to_route("users.show",  $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name"]) !!}
@@ -103,33 +112,41 @@
                                 </div>
                             </div>
                         </div>
+                    @else
+                        <div class="offer-box row ml-0">
+                            <div class="col-8">
+                                {!! link_to_route("users.show", $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name"]) !!}
+                                <span class="offer-time">{{ $user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->created_at }}</span>
+                            </div>
+                            
+                            <p class="offer-status col-4">オファーを断りました</p>
+                        </div>
                     @endif
                 @endforeach
-            @endif
-            @if(!$offering_exist->count() && !$is_offered_exist->count() && !$match)
-                <div class="offer-none">
-                    <p>オファー・マッチングはありません</p>
-                </div>
             @endif
         </div>    
         <div class="matching mb-5">
             @if($match)
                 @foreach($me_others_offer as $offer)
-                    @if($offer->match)
+                    @if($offer->match && !($offer->match == "refused"))
                         <div class="offer-box row ml-0">
-                            <p class="col-8 offer-user-name">{{ App\User::find($offer->offered_id)->name }}</p>
+                            {!! link_to_route("users.show", App\User::find($offer->offered_id)->name, ["id" => $offer->offered_id], ["class" => "offer-user-name col-8"]) !!}
                             {!! link_to_route("chat", "チャットルーム", ["roomid" => $offer->match, "me" => $user, "you" => App\User::find($offer->offered_id)],["class" => "btn btn-lg btn-outline-primary col-4"]) !!}
                         </div>
                     @endif
                 @endforeach
                 @foreach($others_me_offer as $offer)
-                    @if($offer->match)
+                    @if($offer->match && !($offer->match == "refused"))
                         <div class="offer-box row ml-0">
-                            <p class="col-8 offer-user-name">{{ App\User::find($offer->offer_id)->name }}</p>
+                            {!! link_to_route("users.show", App\User::find($offer->offer_id)->name, ["id" => $offer->offer_id], ["class" => "offer-user-name col-8"]) !!}
                             {!! link_to_route("chat", "チャットルーム", ["roomid" => $offer->match, "you" => App\User::find($offer->offer_id), "me" => $user],["class" => "btn btn-lg btn-outline-primary col-4"]) !!}
                         </div>
                     @endif
                 @endforeach
+            @elseif(!$match)
+                <div class="match-none">
+                    <p>マッチング中のユーザーはいません</p>
+                </div>
             @endif
         </div>
     </div>
@@ -145,8 +162,10 @@
                 @if($me_others_offer)
                     @foreach($me_others_offer as $offer) 
                         @if($offer->offered_id == $user->id)
-                            @if($offer->match)
+                            @if($offer->match && !($offer->match == "refused"))
                                 {!! link_to_route("chat", "チャットルーム", ["roomid" => $offer->match, "me" => Auth::user()->id, "you" => $user->id],["class" => "btn btn-lg btn-outline-primary"]) !!}
+                            @elseif($offer->match == "refused")
+                                <p>すでにオファーを断られています</p>
                             @else
                                 <p>オファーしています</p>
                             @endif
@@ -156,15 +175,17 @@
                 @if($others_me_offer)
                     @foreach($others_me_offer as $offer)
                         @if($offer->offer_id == $user->id)
-                            @if($offer->match)
+                            @if($offer->match && !($offer->match == "refused"))
                                 {!! link_to_route("chat", "チャットルーム", ["roomid" => $offer->match, "me" => Auth::user()->id, "you" => $user->id],["class" => "btn btn-lg btn-outline-primary"]) !!}
+                            @elseif($offer->match == "refused")
+                                <p>このユーザーのオファーをすでに断っています</p>
                             @else
                                 <p>オファーされています</p>
                             @endif
                         @endif
                     @endforeach
                 @endif
-                @if(!Auth::user()->is_offering($user->id) && !Auth::user()->is_being_offered($user->id))
+                @if(!(Auth::user()->is_offering($user->id)) && !(Auth::user()->is_being_offered($user->id)))
                     {!! Form::open(['route' => ['offer', $user->id]]) !!}
                         {!! Form::submit('オファーする', ['class' => "btn btn-primary btn-block"]) !!}
                     {!! Form::close() !!}

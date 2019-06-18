@@ -71,6 +71,12 @@ class User extends Authenticatable
         if($exist && !$its_me){
             $this->is_offered()->detach($userId);
             
+            Offer::create([
+                "offer_id" => $userId,
+                "offered_id" => $this->id,
+                "match" => "refused",
+                ]);
+            
             return true;
         }else{
             return false;

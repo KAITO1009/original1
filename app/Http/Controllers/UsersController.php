@@ -36,12 +36,12 @@ class UsersController extends Controller
         $match = [];
         
         foreach($me_others_offer as $offer){
-                if($offer->match){
+                if($offer->match && !($offer->match == "refused")){
                     $match = $offer;
                 }
             }
             foreach($others_me_offer as $offer){
-                if($offer->match){
+                if($offer->match && !($offer->match == "refused")){
                     $match = $offer;
                 }
             }
