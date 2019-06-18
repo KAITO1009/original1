@@ -117,4 +117,8 @@ class User extends Authenticatable
     {
         return $this->is_offered()->where("offer_id", $userId)->exists();
     }
+    
+    public function is_offered_count(){
+        return $offered = $this->is_offered()->where("match", null)->get()->count();
+    }
 }

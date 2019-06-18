@@ -6,6 +6,11 @@
             <ul class="nav-bar mr-auto"></ul>
             <ul class="navbar-nav mr-4">
                 @if(Auth::check())
+                    @if(true)
+                        <div class="offer-badge-wrapper">
+                            <span class="badge badge-pill badge-info offer-badge">オファーが来ています<span class="offer-badge__count badge-light badge-pill badge">{{ Auth::user()->is_offered_count() }}</span></span>
+                        </div>
+                    @endif
                     <li class="nav-item">{!! link_to_route('logout.get','ログアウト', [], ['class' => 'nav-link nav-link text-white mt-1', 'id' => 'logout-button']) !!}</li>
                     <li class="nav-item">{!! link_to_route('users.show','マイページ', ['id' => Auth::id()], ['class' => 'nav-link btn btn-lg btn-primary ml-3 text-white']) !!}</li>
                 @else

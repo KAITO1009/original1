@@ -71,7 +71,7 @@
             <h2 class="offer-heading mb-3">オファー・マッチング一覧</h2>
             @if($offering_exist->count())
                 @foreach($offering_exist as $offering_user)
-                    @if(!($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match) && !($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match == "refused"))
+                    @if($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match == null)
                         <div class="offer-box row ml-0">
                             <div class="col-8">
                                 {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name"]) !!}
@@ -80,7 +80,7 @@
                             
                             <p class="offer-status col-4">オファー中</p>
                         </div>
-                    @else
+                    @elseif($user->offered()->where("offer_id", $user->id)->where("offered_id", $offering_user->id)->first()->pivot->match == "refused")
                         <div class="offer-box row ml-0">
                             <div class="col-8">
                                 {!! link_to_route("users.show", $offering_user->name, ["id" => $offering_user->id], ["class" => "offer-user-name"]) !!}
@@ -94,7 +94,7 @@
             @endif
             @if($is_offered_exist->count())
                 @foreach($is_offered_exist as $is_offered_user)
-                    @if(!($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match) && !($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match == "refused"))
+                    @if($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match == null)
                         <div class="offer-box row ml-0">
                             <div class="col-4">
                                 {!! link_to_route("users.show",  $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name"]) !!}
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                    @else
+                    @elseif($user->is_offered()->where("offer_id", $is_offered_user->id)->where("offered_id", $user->id)->first()->pivot->match == "refused")
                         <div class="offer-box row ml-0">
                             <div class="col-8">
                                 {!! link_to_route("users.show", $is_offered_user->name, ["id" => $is_offered_user->id], ["class" => "offer-user-name"]) !!}

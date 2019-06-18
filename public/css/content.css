@@ -10,6 +10,11 @@
 .mypage{
     color:white;
 }
+.offer-badge{
+    line-height:48px;
+    margin-right:20px;
+}
+
 /*footer*/
 .footer{
     background-color:#333;
