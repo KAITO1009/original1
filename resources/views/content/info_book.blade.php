@@ -22,7 +22,7 @@
                 <h3>{{ $book_post->advertisement }}</h3>
         </div>
         <div class"row">
-                <p>{{ $book_post->content }}</p>
+                <p>{!! nl2br(e($book_post->content)) !!}</p>
         </div>
 </div>
         
