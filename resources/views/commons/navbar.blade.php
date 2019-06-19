@@ -8,7 +8,7 @@
                 @if(Auth::check())
                     @if(!(Auth::user()->is_offered_count() == 0))
                         <div class="offer-badge-wrapper">
-                            <span class="badge badge-pill badge-info offer-badge">オファーが来ています<span class="offer-badge__count badge-light badge-pill badge">{{ Auth::user()->is_offered_count() }}</span></span>
+                            <a href="{{ route('users.show', ['id' => Auth::id() ]) }}"><span class="badge badge-pill badge-info offer-badge">オファーが来ています<span class="offer-badge__count badge-light badge-pill badge">{{ Auth::user()->is_offered_count() }}</span></span></a>
                         </div>
                     @endif
                     <li class="nav-item">{!! link_to_route('logout.get','ログアウト', [], ['class' => 'nav-link nav-link text-white mt-2', 'id' => 'logout-button']) !!}</li>
